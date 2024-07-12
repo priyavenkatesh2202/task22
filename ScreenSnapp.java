@@ -24,97 +24,99 @@ public class ScreenSnapp {
 		public static void main(String[] args) throws IOException {
 			// TODO Auto-generated method stub
 			
-			
+		// open the browser	
 			
 			WebDriver driver = new ChromeDriver();
+			
+		// launch the URL	
 			
 			driver.get("https://phptravels.com/demo/");
 			
 			driver.manage().window().maximize();
 			
-		 //	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		// enter first name
 			
 			driver.findElement(By.xpath("//input[@placeholder='Last Name']")).sendKeys("Priya");
 			
-			
+		// enter last name	
 			driver.findElement(By.xpath("//input[@placeholder='First Name']")).sendKeys("Venk");
 			
-			
+		// enter phone number	
 			driver.findElement(By.xpath("//input[@placeholder=' ']")).sendKeys("9566700270");
 			
-			
+		//	enter business name
 			driver.findElement(By.xpath("//input[@placeholder='Business Name']")).sendKeys("SVR Logistics");
 			
-			
+		// enter mail ID	
 			driver.findElement(By.xpath("//input[@placeholder='Email']")).sendKeys("priyavenk@gmail.com");
 			
+		// to add the value  that verifies the sum 	
+			
+			
+			// getting first value
 			
 	        String st = driver.findElement(By.xpath("//span[@id='numb1']")).getText();
 		
 			
-			
+			// getting second value
 			String str = driver.findElement(By.xpath("//span[@id='numb2']")).getText();
 			
-			
+			//converting string to integer
 			int i=Integer.parseInt(st); 
 			
 			int t = Integer.parseInt(str);
 			
-			
+			// to add the values and stored @ value s
 			int s = i+t;
 			
-		   String stt = Integer.toString(s); 
+			//converting integer to string
+		    String stt = Integer.toString(s); 
 		  
-		   driver.findElement(By.xpath("(//input[@type='number'])[1]")).sendKeys( stt ); 
+		// enter the sum value    
+		    driver.findElement(By.xpath("(//input[@type='number'])[1]")).sendKeys( stt ); 
 		   
-		   
-		   WebElement clickable = driver.findElement(By.xpath("//button[@id='demo']"));
-	       new Actions(driver).click(clickable).perform();
+		// mouse action to click the submit button   
+	        WebElement clickable = driver.findElement(By.xpath("//button[@id='demo']"));
+	        new Actions(driver).click(clickable).perform();
 	       
+	    // explicit wait for the form to be submitted  
+	        
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	       
-		  // driver.findElement(By.xpath("//button[@id='demo']")).click();
-			
-		   
-		  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-			
-	  wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//h2[@class='text-center cw mt-3']")));
+	        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h2[@class='text-center cw mt-3']")));
+     
 
-//		 
-			
-			   //div[@class='completed']     (//div[@class='col-md-12'])[2]
-
-	     String e = driver.findElement(By.xpath("//strong[contains(text(),' Thank')]")).getTagName();
+	    // to verify the form is submitted successfully 
+		
+	        
+	        String text = element.getText(); 
+	        System.out.println("The verified tag name is: " + text);
 	    
-	     System.out.println("The verified tag name is: " +e );
+	   
+		
+		// to Capture the screenshot
+		
+		   File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		   
+		   
+		   
+			// locating one of the element to take screenshot   
+			   
+			   driver.findElement(By.xpath("//strong[contains(text(),' Thank')]")).click();
 			
-	 /* File source1 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		
-		// Mention the path
-		
-		File dest1 = new File("C:\\Users\\HP\\eclipse-workspace\\POMProject\\SNAP\\snp.png");
-		
-		// Move source to dest
-		
-		FileUtils.copyFile(source1, dest1);
-		  driver.findElement(By.xpath("//strong[contains(text(),' Thank')]")).click();
-		
-		// Capture screenshot
-		
-				File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 				
-				// Mention the path
+		// Mention the path where the screen shot to be located
 				
-				File dest = new File("C:\\Users\\HP\\eclipse-workspace\\POMProject\\SNAP\\snp.png");
+		   File dest = new File("C:\\Users\\HP\\eclipse-workspace\\POMProject\\SNAP\\snp.png");
 				
-				// Move source to dest
+	    // source to destination
 				
-				FileUtils.copyFile(source, dest);
+		   FileUtils.copyFile(source, dest);
 			
-			*/
-	     
+		}
 		}
 		
 	
 		
 	
-}
+
